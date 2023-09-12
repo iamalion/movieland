@@ -1,32 +1,26 @@
 
-import { useEffect } from 'react';
-import MovieCard from './MovieCard ';
+import { useState, useEffect } from 'react';
+import MovieCard from './MovieCard';
 import './App.css';
 import SearchIcon from './search.svg';
 
 
 const API_URL = 'https://www.omdbapi.com?apikey=4c2ff4bd';
 
-const movie1 = 
-    {
-        "Title": "Murder by Death",
-        "Year": "1976",
-        "imdbID": "tt0074937",
-        "Type": "movie",
-        "Poster": "https://m.media-amazon.com/images/M/MV5BZWJiZjUxNTQtNTI3My00ZjQyLWFjZTEtODJjYzU0ZGYwYzNkXkEyXkFqcGdeQXVyNDk3NzU2MTQ@._V1_SX300.jpg"
-    }
-
 const App = () => {
+    const [movies, setMovies] = useState([]);
+
+    useEffect(() => {
+        searchMovies("Avengers")
+    }, []);
+
     const searchMovies = async (title) => {
         const res = await fetch(`${API_URL}&s=${title}`);
         const data = await res.json();
 
-        console.log(data.Search);
-    }
+        setMovies(data.Search || []);
+    };
 
-    useEffect(() => {
-        searchMovies("Murder by Death")
-    }, []);
     return (
         <div className="app">
         <h1>MovieLand</h1>
@@ -34,7 +28,8 @@ const App = () => {
         <div className="search">
             <input 
                 placeholder="Search for movies" 
-                value="Murder By Death" onChange={() => {}} 
+                value="Avengers" 
+                onChange={() => {}} 
             />
             <img
                 src = {SearchIcon}
@@ -43,10 +38,21 @@ const App = () => {
             />
             </div>
 
-            <div className="containter">
-                <MovieCard movie1={movie1} /> 
+            {
+                movies?.length > 0
+                    ? (
+                        <div className="container">
+                            {movies.map((movie) => (
+                                <MovieCard movie={movie} />
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="empty">
+                            <h2>No movies found</h2>
+                        </div>
+                    )
+            }
             </div>
-        </div>
        
     );
 }
