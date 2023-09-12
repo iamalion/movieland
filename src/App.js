@@ -23,37 +23,33 @@ const App = () => {
 
     return (
         <div className="app">
-        <h1>MovieLand</h1>
+            <h1>MovieLand</h1>
 
-        <div className="search">
-            <input 
-                placeholder="Search for movies" 
-                value="Avengers" 
-                onChange={() => {}} 
-            />
-            <img
-                src = {SearchIcon}
-                alt = "search"
-                onClick = {() => {}}
-            />
+            <div className="search">
+                <input 
+                    placeholder="Search for movies" 
+                    value="Avengers" 
+                    onChange={() => {}} 
+                />
+                <img
+                    src = {SearchIcon}
+                    alt = "search"
+                    onClick = {() => {}}
+                />
             </div>
 
-            {
-                movies?.length > 0
-                    ? (
-                        <div className="container">
-                            {movies.map((movie) => (
-                                <MovieCard movie={movie} />
-                            ))}
-                        </div>
-                    ) : (
-                        <div className="empty">
-                            <h2>No movies found</h2>
-                        </div>
-                    )
-            }
-            </div>
-       
+            {movies?.length > 0 ? (
+                <div className="container">
+                    {movies.map((movie) => (
+                        <MovieCard movie={movie} />
+                    ))}
+                </div>
+                ) : (
+                    <div className="empty">
+                        <h2>No movies found</h2>
+                    </div>
+                )}
+        </div>
     );
 }
 
