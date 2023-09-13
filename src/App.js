@@ -9,6 +9,7 @@ const API_URL = 'https://www.omdbapi.com?apikey=4c2ff4bd';
 
 const App = () => {
     const [movies, setMovies] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
         searchMovies("Avengers")
@@ -28,13 +29,13 @@ const App = () => {
             <div className="search">
                 <input 
                     placeholder="Search for movies" 
-                    value="Avengers" 
-                    onChange={() => {}} 
+                    value={searchTerm} 
+                    onChange={(e) => setSearchTerm(e.target.value)} 
                 />
                 <img
                     src = {SearchIcon}
                     alt = "search"
-                    onClick = {() => {}}
+                    onClick = {() => searchMovies(searchTerm)}
                 />
             </div>
 
